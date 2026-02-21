@@ -2,9 +2,9 @@ from enum import Enum
 
 class TextType(Enum):
     TEXT = "text"
-    BOLD_TEXT = "bold_text"
-    ITALIC_TEXT = "italic text"
-    CODE_TEXT = "code_text"
+    BOLD = "bold"
+    ITALIC = "italic"
+    CODE = "code"
     LINK = "link"
     IMAGE = "image"
 
