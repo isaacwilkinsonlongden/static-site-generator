@@ -79,3 +79,13 @@ def list_to_list_nodes(lists):
         list_nodes.append(ParentNode("li", text_to_children(line)))
     return list_nodes
 
+def extract_title(markdown):
+    markdown_split = markdown.split("\n")
+    for line in markdown_split:
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("# "):
+            return line[2:].strip()
+    raise Exception("No h1 header found")
+
