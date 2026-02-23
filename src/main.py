@@ -5,7 +5,7 @@ from markdown_to_html import markdown_to_html_node, extract_title
 
 def main():
     static_to_public("static", "public")
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public")
 
 def static_to_public(source, destination):
     if os.path.exists(destination):
@@ -40,6 +40,18 @@ def generate_page(from_path, template_path, dest_path):
         os.makedirs(dirpath, exist_ok=True)
     with open(dest_path, "w", encoding="utf-8") as f:
         f.write(template)
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    file_list = os.listdir(dir_path_content)
+    for file in file_list:
+        file_path = os.path.join(dir_path_content, file)
+        dest_path = os.path.join(dest_dir_path, file)
+        if os.path.isfile(file_path):
+            if file[-3:] == ".md":
+                dest_path = dest_path.replace(".md", ".html")
+                generate_page(file_path, template_path, dest_path)
+        else:
+            generate_pages_recursive(file_path, template_path, dest_path)
     
 
 if __name__ == "__main__":
